@@ -5,3 +5,4 @@
 from general.core import GrEexception
 from general.simulation import Simulation
 from general.agents.dqn import DQN
+from general.core import  Proxy

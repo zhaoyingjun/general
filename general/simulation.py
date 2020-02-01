@@ -56,7 +56,6 @@ class Simulation:
 
             for i in range(instances):
                 if visualize:envs[i].render()
-                #action=self.agent.act(states[i],i)
 
                 action = self.agent.act(states[i], i)
 

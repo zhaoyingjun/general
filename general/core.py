@@ -2,7 +2,7 @@
 # @Time    : 2020-01-31 20:54
 # @Author  : Enjoy Zhao
 """
-Abstract base class for exception and client
+Abstract base class for exception and agent and proxy
 在本文件中是定义exception和client的抽象基类，注意抽象基类并不能直接使用，需要根据抽象基类的定义具体实现之后才能使用
 """
 class GrEexception(Exception):

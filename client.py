@@ -9,7 +9,10 @@ matplotlib.use("macOSX")
 import matplotlib.pyplot as plt
 import gym
 import general as gr
-#from general.agents import dqn
+from policy import Policy
+
+
+
 
 if __name__ == '__main__':
 
