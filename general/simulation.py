@@ -56,8 +56,11 @@ class Simulation:
 
             for i in range(instances):
                 if visualize:envs[i].render()
-                action=self.agent.act(states[i],i)
-                next_state,reward,done,_=envs[i].step(action)
+                #action=self.agent.act(states[i],i)
+
+                action = self.agent.act(states[i], i)
+                print(action)
+                next_state,reward,done, _=envs[i].step(action)
                 self.agent.push(Transition(states[i],action,reward,None if done else next_state),i)
 
                 episode_rewards[i]+=reward

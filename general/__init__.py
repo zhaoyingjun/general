@@ -3,5 +3,5 @@
 # @Author  : Enjoy Zhao
 
 from general.core import GrEexception
-from general.simulation import Simullation
+from general.simulation import Simulation
 import general.agents
