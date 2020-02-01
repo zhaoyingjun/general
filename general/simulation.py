@@ -5,6 +5,7 @@
 from collections import namedtuple
 import multiprocessing as mp
 import cloudpickle # For pickling lambda functions and more
+import memory
 from memory import Transition
 from core import  GrEexception
 
