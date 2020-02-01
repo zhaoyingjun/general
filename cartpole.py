@@ -8,9 +8,7 @@ import matplotlib
 matplotlib.use("macOSX")
 import matplotlib.pyplot as plt
 import gym
-import general.agents.dqn as dqn
-import general
-
+import general as gr
 
 if __name__ == '__main__':
 
@@ -26,7 +24,7 @@ if __name__ == '__main__':
 	])
 
 	# Create Deep Q-Learning Network agent
-	agent = dqn.DQN(model, actions=dummy_env.action_space.n, nsteps=2)
+	agent = gr.agents.DQN(model, actions=dummy_env.action_space.n, nsteps=2)
 
 	def plot_rewards(episode_rewards, episode_steps, done=False):
 		plt.clf()
@@ -37,6 +35,6 @@ if __name__ == '__main__':
 		plt.show() if done else plt.pause(0.001) # Pause a bit so that the graph is updated
 
 	# Create simulation, train and then test
-	sim = general.core.Simulation(create_env, agent)
+	sim = gr.Simulation(create_env, agent)
 	sim.train(max_steps=3000, visualize=True, plot=plot_rewards)
 	sim.test(max_steps=1000)

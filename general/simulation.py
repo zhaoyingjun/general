@@ -7,8 +7,8 @@ from collections import namedtuple
 
 import cloudpickle  # For pickling lambda functions and more
 
-from core import GrEexception
-from memory import Transition
+from general.core import GrEexception
+from general.memory import Transition
 
 RewardState=namedtuple('RewardState',['reward','state'])
 
@@ -23,7 +23,7 @@ class Simullation:
         self.agent=agent
         self.mapping=mapping
 
-    def train(self,max_steps=100_000,instances=1,visualize=False,plot=None,max_subprocesses=0):
+    def train(self,max_steps=100000,instances=1,visualize=False,plot=None,max_subprocesses=0):
         """"""
 
         self.agent.training=True
