@@ -12,7 +12,7 @@ from general.memory import Transition
 
 RewardState=namedtuple('RewardState',['reward','state'])
 
-class Simullation:
+class Simulation:
 
     """
 
