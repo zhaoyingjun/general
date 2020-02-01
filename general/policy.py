@@ -20,7 +20,7 @@ class Greedy(Policy):
 
     def act(self,qvals):
 
-        return tf.argmax(qvals)
+        return np.argmax(qvals)
 
 
 
@@ -35,7 +35,7 @@ class EpsGreedy(Policy):
     def act(self,qvals):
 
         if random.random()>self.eps:
-            return tf.argmax(qvals)
+            return np.argmax(qvals)
         return random.randrange(len(qvals))
 
 class GaussianEpsGreedy(Policy):
@@ -54,7 +54,7 @@ class GaussianEpsGreedy(Policy):
         eps=truncnorm.rvs((0-self.eps_mean)/self.eps_std, (1-self.eps_mean)/self.eps_std)
 
         if random.random() >eps:
-            return tf.argmax(qvals)
+            return np.argmax(qvals)
         return random.randrange(len(qvals))
 
 
