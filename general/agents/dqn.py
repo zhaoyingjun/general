@@ -191,7 +191,7 @@ class DQN(Agent):
 
         state_batch,action_batch,reward_batches,end_state_batch,not_done_mask=self.memory.get(batch_size)
 
-        target_qvals=np.zero(batch_size)
+        target_qvals=np.zeros(batch_size)
 
         non_final_last_next_states=[es for es in end_state_batch if es is not None]
 
@@ -204,7 +204,7 @@ class DQN(Agent):
 
                 target_q_values=self.target_model.predict_on_batch(np.array(non_final_last_next_states))
 
-                selected_target_q_vals=tf.gather_nd(target_q_values,tf.transpose(tf.stack[tf.range(len(target_q_values)),actions]))
+                selected_target_q_vals=tf.gather_nd(target_q_values,tf.transpose(tf.stack([tf.range(len(target_q_values)),actions])))
 
             else:
 

@@ -59,7 +59,7 @@ class Simulation:
                 #action=self.agent.act(states[i],i)
 
                 action = self.agent.act(states[i], i)
-                print(action)
+
                 next_state,reward,done, _=envs[i].step(action)
                 self.agent.push(Transition(states[i],action,reward,None if done else next_state),i)
 
