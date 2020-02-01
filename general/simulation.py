@@ -7,7 +7,7 @@ from collections import namedtuple
 
 import cloudpickle  # For pickling lambda functions and more
 
-from core import GrEexception
+import core
 from memory import Transition
 
 RewardState=namedtuple('RewardState',['reward','state'])
@@ -34,7 +34,7 @@ class Simullation:
 
             self._mp_train(max_steps,instances,visualize,plot,max_subprocesses)
         else:
-            raise GrEexception(f"Invalid max_subprocesses setting: {max_subprocesses}")
+            raise core.GrEexception(f"Invalid max_subprocesses setting: {max_subprocesses}")
 
     def _sp_train(self, max_steps, instances, visualize, plot=None):
 
