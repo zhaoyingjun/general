@@ -13,17 +13,17 @@ class Memory:
     """
 
     """
-    #@abc.abstractmethod
+    @abc.abstractmethod
     def put(self,*args,**kwargs):
 
         raise NotImplementedError()
 
-    #@abc.abstractmethod
+    @abc.abstractmethod
     def get(self,*args,**kwargs):
 
         raise NotImplementedError()
 
-    #@abc.abstractmethod
+    @abc.abstractmethod
     def __len__(self):
 
         raise NotImplementedError()

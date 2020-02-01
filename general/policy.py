@@ -9,7 +9,7 @@ import tensorflow as tf
 
 class Policy:
 
-    #@abc.abstractmethod
+    @abc.abstractmethod
     def act(self,**kwargs):
 
         return NotImplementedError()

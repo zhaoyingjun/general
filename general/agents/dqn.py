@@ -176,11 +176,11 @@ class DQN(Agent):
 
         if self.target_update>=1 and step % self.target_update==0:
 
-            self.target_model.set_weights(self.model.get_weights)
+            self.target_model.set_weights(self.model.get_weights())
 
         elif self.target_update<1:
 
-            mw=np.array(self.model.get_weights)
+            mw=np.array(self.model.get_weights())
 
             tmw=np.array(self.target_model.get_weights())
 

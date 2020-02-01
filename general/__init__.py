@@ -4,4 +4,4 @@
 
 from general.core import GrEexception
 from general.simulation import Simulation
-import general.agents
+from general.agents.dqn import DQN

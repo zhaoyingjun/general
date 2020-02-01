@@ -9,7 +9,7 @@ matplotlib.use("macOSX")
 import matplotlib.pyplot as plt
 import gym
 import general as gr
-from general.agents import dqn
+#from general.agents import dqn
 
 if __name__ == '__main__':
 
@@ -25,7 +25,7 @@ if __name__ == '__main__':
 	])
 
 	# Create Deep Q-Learning Network agent
-	agent = dqn.DQN(model, actions=dummy_env.action_space.n, nsteps=2)
+	agent = gr.DQN(model, actions=dummy_env.action_space.n, nsteps=2)
 
 	def plot_rewards(episode_rewards, episode_steps, done=False):
 		plt.clf()
