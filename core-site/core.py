@@ -23,7 +23,7 @@ class Agent:
         """
         raise NotImplementedError()
 
-    def act(self,sate,instance=0):
+    def act(self,state,instance=0):
         """
         Returns the action to be taken given a state.
         act属性是需要实现根据输入的环境状态输出执行动作指令
