@@ -8,8 +8,9 @@ import matplotlib
 matplotlib.use("macOSX")
 import matplotlib.pyplot as plt
 import gym
-from agents import dqn
-import simulation
+import general.agents.dqn as dqn
+import general
+
 
 if __name__ == '__main__':
 
@@ -36,6 +37,6 @@ if __name__ == '__main__':
 		plt.show() if done else plt.pause(0.001) # Pause a bit so that the graph is updated
 
 	# Create simulation, train and then test
-	sim = simulation.Simulation(create_env, agent)
+	sim = general.core.Simulation(create_env, agent)
 	sim.train(max_steps=3000, visualize=True, plot=plot_rewards)
 	sim.test(max_steps=1000)
