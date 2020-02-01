@@ -2,12 +2,13 @@
 # @Time    : 2020-01-31 22:18
 # @Author  : Enjoy Zhao
 
-from collections import namedtuple
 import multiprocessing as mp
-import cloudpickle # For pickling lambda functions and more
-import memory
+from collections import namedtuple
+
+import cloudpickle  # For pickling lambda functions and more
+
+from core import GrEexception
 from memory import Transition
-from core import  GrEexception
 
 RewardState=namedtuple('RewardState',['reward','state'])
 
