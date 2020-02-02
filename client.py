@@ -9,7 +9,7 @@ matplotlib.use("macOSX")
 import matplotlib.pyplot as plt
 import gym
 import general as gr
-from policy import Policy
+#from policy import Policy
 
 
 

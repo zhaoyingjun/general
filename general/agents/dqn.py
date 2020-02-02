@@ -111,7 +111,7 @@ class DQN(Agent):
 
                     """
 
-                    td_error=np.abs((_target_qvals-_qvals).numpy())
+                    td_error=tf.abs((_target_qvals-_qvals).numpy())
 
                     _traces_idxs=(tf.cast(_traces_idxs,tf.int32)).numpy()
 
@@ -200,7 +200,7 @@ class DQN(Agent):
             if self.enable_double_dqn:
 
                 q_values=self.model.predict_on_batch(np.array(non_final_last_next_states))
-                actions=np.argmax(q_values,axis=1)
+                actions=tf.cast(tf.argmax(q_values,axis=1),tf.int32)
 
                 target_q_values=self.target_model.predict_on_batch(np.array(non_final_last_next_states))
 
@@ -230,7 +230,7 @@ class DQN(Agent):
 
             loss_data.append(self.memory.last_traces_idxs())
 
-        self.model.train_on_batch(np.array(state_batch),np.stack(loss_data).transpose())
+        self.model.train_on_batch(np.array(state_batch),tf.transpose(tf.stack(loss_data)))
 
 
 

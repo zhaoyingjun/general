@@ -4,6 +4,7 @@
 
 import multiprocessing as mp
 from collections import namedtuple
+import tensorflow as tf
 
 import cloudpickle  # For pickling lambda functions and more
 
@@ -57,7 +58,7 @@ class Simulation:
             for i in range(instances):
                 if visualize:envs[i].render()
 
-                action = self.agent.act(states[i], i)
+                action = tf.keras.backend.eval(self.agent.act(states[i], i))
 
                 next_state,reward,done, _=envs[i].step(action)
                 self.agent.push(Transition(states[i],action,reward,None if done else next_state),i)

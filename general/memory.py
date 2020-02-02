@@ -7,6 +7,7 @@ import random
 import numpy as np
 import abc
 
+
 Transition=namedtuple('Transition',['state','action','reward','next_state'])
 
 class Memory:
@@ -145,7 +146,7 @@ class PrioritizedExperienceReplay(Memory):
             self.priorities=np.append(self.priorities,EPS if self.priorities.size==0 else self.priorities.max())
         else:
 
-            idx=np.argmin(self.priorities)
+            idx=tf.argmin(self.priorities)
 
             self.traces[idx]=tuple(self.buffer)
             self.priorities[idx]=self.priorities.max()
