@@ -24,7 +24,7 @@ class Simulation:
         self.agent=agent
         self.mapping=mapping
 
-    def train(self,max_steps=100000,instances=1,visualize=False,plot=None,max_subprocesses=0):
+    def train(self,max_steps=1000,instances=1,visualize=False,plot=None,max_subprocesses=0):
         """"""
 
         self.agent.training=True
@@ -37,7 +37,7 @@ class Simulation:
         else:
             raise GrEexception(f"Invalid max_subprocesses setting: {max_subprocesses}")
 
-    def _sp_train(self, max_steps, instances, visualize, plot=None):
+    def _sp_train(self, max_steps, instances, visualize=False, plot=None):
 
         """
         :param max_steps:
@@ -46,24 +46,30 @@ class Simulation:
         :param plot:
         :return:
         """
-        episode_reward_sequences=[[] for _ in range(instances)]
-        episode_step_sequences=[[] for _ in range(instances)]
+        episode_reward_sequences=[[0] for _ in range(instances)]
+        episode_step_sequences=[[0] for _ in range(instances)]
         episode_rewards=[0]*instances
 
-        envs=[self.create_env() for _ in range(instances)]
+        envs=[self.create_env for _ in range(instances)]
         states=[env.reset() for env in envs]
+
+
 
         for step in range(max_steps):
 
             for i in range(instances):
                 if visualize:envs[i].render()
 
+
+
                 action = tf.keras.backend.eval(self.agent.act(states[i], i))
 
-                next_state,reward,done, _=envs[i].step(action)
+                next_state,reward,done, _=envs[i].step(action=action)
+
                 self.agent.push(Transition(states[i],action,reward,None if done else next_state),i)
 
                 episode_rewards[i]+=reward
+
                 if done:
                     episode_reward_sequences[i].append(episode_rewards[i])
                     episode_step_sequences[i].append(step)
@@ -191,7 +197,7 @@ class Simulation:
 
         for step in range(max_steps):
             if visualize:env.render()
-            action=self.agent.act(state)
+            action=tf.keras.backend.eval(self.agent.act(state))
 
             next_state,reward,done,_=env.step(action)
             state=env.reset() if done else  next_state

@@ -4,44 +4,36 @@
 from urllib3 import PoolManager
 import json
 
-class Proxy:
+class Proxy(object):
 
-   def __init__(self,url,GET=True,observation_spac=None,init_state=None):
+   def __init__(self,url,observation_space=None,init_state=None):
 
        self.url=url
 
-       self.GET=GET
-
-       self.observation_spac=observation_spac
+       self.observation_space=observation_space
 
        self.init_state=init_state
    def step(self,action):
        """
        return
        """
-       http=PoolManager(num_pools=100,headers=None)
-       data = json.dumps({'action':action})
-       if self.GET :
-         response=http.request('GET',self.url,data)
-       else:
-         response = http.request('POST', self.url, data)
+       http=PoolManager(num_pools=1,headers=None)
+       data = {'action':str(action)}
 
-       reward=response.data.decode()['reward']
-       state=response.data.decode()['state']
+       response_data=json.loads(http.request('PUT',self.url,data).data)
 
-       return reward,state
+       reward=json.loads(response_data).get('reward')
+       next_state = json.loads(response_data).get('next_state')
+       done=json.loads(response_data).get('done')
 
-
-   def observation_space(self):
-
-
-       return self.observation_spac
+       return next_state,reward,done,None
 
 
    def render(self):
 
+       #render在gym的游戏中是游戏图形化展示的方法，在使用url时该方法不适用
 
-       return
+      return
 
    def reset(self):
 
