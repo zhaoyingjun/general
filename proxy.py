@@ -3,14 +3,16 @@
 # @Author  : Enjoy Zhao
 from urllib3 import PoolManager
 import json
+import numpy as np
 
 class Proxy(object):
 
-   def __init__(self,url,observation_space=None,init_state=None):
+   def __init__(self,url,init_state=[0,0,0,0]):
 
        self.url=url
 
-       self.observation_space=observation_space
+       self.observation_space=np.array(init_state)
+
 
        self.init_state=init_state
    def step(self,action):

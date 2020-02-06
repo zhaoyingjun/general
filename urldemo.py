@@ -40,6 +40,7 @@ class env(Resource):
         'done':done
 
     },cls=NpEncoder)
+    print(data)
 
     return jsonify(data)
 api.add_resource(env,'/')
