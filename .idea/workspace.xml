@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0b311531-23c4-4a64-a1bf-5a207ca4120e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/general.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/general.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/general/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/general/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/general/agents/dqn.py" beforeDir="false" afterPath="$PROJECT_DIR$/general/agents/dqn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/general/memory.py" beforeDir="false" afterPath="$PROJECT_DIR$/general/memory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/general/policy.py" beforeDir="false" afterPath="$PROJECT_DIR$/general/policy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/general/simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/general/trainer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy.py" beforeDir="false" afterPath="$PROJECT_DIR$/proxy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/urldemo.py" beforeDir="false" afterPath="$PROJECT_DIR$/urldemo.py" afterDir="false" />
-    </list>
+    <list default="true" id="0b311531-23c4-4a64-a1bf-5a207ca4120e" name="Default Changelist" comment="for rc" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -323,7 +308,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580613233051</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="for rc">
+      <created>1582472738736</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1582472738736</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -355,7 +347,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="for rc" />
+    <option name="LAST_COMMIT_MESSAGE" value="for rc" />
   </component>
   <component name="masterDetails">
     <states>
