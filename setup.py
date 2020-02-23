@@ -23,8 +23,8 @@ setup(
 		'tensorflow==2.1',
 		'scipy',
         'gym',
-        'numpy',
-	],
+        'numpy', 'wx', 'matplotlib','flask','flask_restful'
+    ],
 	packages=find_packages()
 
 

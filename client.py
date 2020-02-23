@@ -64,8 +64,8 @@ class client(object):
         cpkt = tf.io.gfile.listdir("model_dir")
         if cpkt==self.file_path:
             agent.model.load_weights(self.file_path)
-        # 使用huskarl框架的simulation来创建一个训练模拟器，在模拟器中进行训练。
-        sim = gr.Simulation(self.dummy_env, agent)
+        # 使用general框架的trainer来创建一个训练模拟器，在模拟器中进行训练。
+        sim = gr.Trainer(self.dummy_env, agent)
         sim.train(max_steps=self.train_steps, visualize=True, plot=self.plot_rewards)
         agent.model.save_weights(filepath=self.file_path, overwrite=True, save_format='h5')
 
@@ -73,7 +73,7 @@ class client(object):
         model = self.create_model()
         agent = gr.DQN(model, actions=self.dummy_env.action_space.n, nsteps=2)
         agent.model.load_weights(filepath=self.file_path)
-        sim = gr.Simulation(self.dummy_env, agent)
+        sim = gr.Trainer(self.dummy_env, agent)
         sim.test(max_steps=self.run_steps)
 
 

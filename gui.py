@@ -1,4 +1,7 @@
 # coding = utf-8
+# @Time    : 2020-01-31 22:18
+# @Author  : Enjoy Zhao
+# @Describe ：本文件使用wxpython编写来一个gui，用于配置general项目参数和展示训练过程
 import wx
 import time
 import threading
@@ -6,7 +9,7 @@ from client import client
 import gym
 import matplotlib
 from proxy import Proxy
-import numpy as np
+
 matplotlib.use("macOSX")
 
 data_x={'dense_num':3,
@@ -23,8 +26,7 @@ class RewardThread(threading.Thread):
 
     def __init__(self, parent,env):
         """
-        :param parent:  主线程UI
-        :param timer:  计时器
+
         """
         super(RewardThread, self).__init__()
         self.parent = parent
@@ -55,7 +57,7 @@ class TrainThread(threading.Thread):
         self._stop_event = threading.Event()
         self.setDaemon(True)
     def run(self):
-       # s=self.parent.create_env()
+
         self.client.train()
 
     def stop(self):
@@ -82,7 +84,7 @@ class AppUI(wx.Panel):
             grid.Add(self.quote, pos=(0, 0))
 
             # 展示训练过程的rewards
-            self.logger = wx.TextCtrl(self, pos=(300, 20), size=(200, 350),
+            self.logger = wx.TextCtrl(self, pos=(600, 20), size=(200, 350),
                                       style=wx.TE_MULTILINE | wx.TE_READONLY)
 
 
@@ -163,7 +165,7 @@ class AppUI(wx.Panel):
         def update_train_log(self):
             self.logger.AppendText('----------------------\n')
             self.logger.AppendText('|Train_steps  | %d\n' % self.step_data)
-            self.logger.AppendText('|Train_reward| %d\n' % self.reward_data)
+            self.logger.AppendText('|Train_reward | %d\n' % self.reward_data)
 
         def EvtRadioBox(self, event):
 
@@ -195,9 +197,6 @@ class AppUI(wx.Panel):
 
             elif event.GetString()=='softmax':
                 data_x['activation'] = 'softmax'
-
-
-
 
         #
 
@@ -258,7 +257,7 @@ class AppUI_1(wx.Panel):
         grid.Add(self.quote, pos=(0, 0))
 
         # 展示训练过程的rewards
-        self.logger = wx.TextCtrl(self, pos=(300, 20), size=(200, 350),
+        self.logger = wx.TextCtrl(self, pos=(600, 20), size=(200, 350),
                                   style=wx.TE_MULTILINE | wx.TE_READONLY)
 
         # 编辑组件
@@ -417,9 +416,7 @@ class AppUI_1(wx.Panel):
 
 
 if __name__ == "__main__":
-        # app = wx.App(False)
-        # AppUI(None).Show()
-        # app.MainLoop()
+
         app = wx.App(False)
         frame = wx.Frame(None, title="General项目配置页面", size=(600, 400))
         nb = wx.Notebook(frame)
