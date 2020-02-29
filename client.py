@@ -3,7 +3,6 @@
 # @Author  : Enjoy Zhao
 
 import tensorflow as tf
-
 import general as gr
 import os
 if not os.path.exists("model_dir"):
@@ -41,9 +40,6 @@ class client(object):
         self.ep_step=episode_steps[0][-1]
         self.done=done
 
-
-
-
     def create_agent(self):
         model = self.create_model()
         if self.algorithm_type=='dqn':
@@ -67,7 +63,7 @@ class client(object):
         # 使用general框架的trainer来创建一个训练模拟器，在模拟器中进行训练。
         sim = gr.Trainer(self.dummy_env, agent)
         sim.train(max_steps=self.train_steps, visualize=True, plot=self.plot_rewards)
-        agent.model.save_weights(filepath=self.file_path, overwrite=True, save_format='h5')
+        agent.save(filename=self.file_path,overwrite=True,save_format='h5')
 
     def run_model(self):
         model = self.create_model()

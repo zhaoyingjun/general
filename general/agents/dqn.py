@@ -134,13 +134,13 @@ class DQN(Agent):
         #配置网络参数
         self.target_model.set_weights(self.model.get_weights())
 
-    def save(self,filename,overwrite=False):
+    def save(self,filename,overwrite=False,save_format='h5'):
 
         """
         save方法是用于保存网络模型到特定文件
 
         """
-        self.model.save_weights(filename,overwrite=overwrite)
+        self.model.save_weights(filename,overwrite=overwrite,save_format=save_format)
 
 
     def act(self,state,instance=0):
