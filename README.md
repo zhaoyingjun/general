@@ -254,4 +254,4 @@ print("请准确输入train或者test")
 
 ## 使用许可
 
-[MIT](LICENSE) © Richard Littauer
+[MIT](LICENSE) @zhaoyingjun

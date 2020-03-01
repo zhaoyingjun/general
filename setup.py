@@ -5,25 +5,19 @@ from setuptools import find_packages
 setup(
 
     name='general',
-    version='0.1',
+    version='1.0',
     description='A Deep Reinforcement Learning Framework Base  on huskarl',
     author='Enjoy Zhao',
-	author_email='yingjun.xuda@gmail.com',
+	author_email='934389697@qq.com',
 	url='https://github.com/zhaoyingjun/general.git',
-	classifiers=[
-        'Development Status :: 1 - Alpha',
-        'Intended Audience :: Developers',
-        'Topic :: Scientific/Engineering :: Artificial Intelligence',
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-    ],
+
 	python_requires='>=3.6',
 	install_requires=[
 		'cloudpickle',
 		'tensorflow==2.1',
 		'scipy',
         'gym',
-        'numpy', 'wx', 'matplotlib','flask','flask_restful'
+        'numpy', 'wxpython', 'matplotlib','flask','flask_restful'
     ],
 	packages=find_packages()
 
