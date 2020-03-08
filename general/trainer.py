@@ -63,13 +63,16 @@ class Trainer:
                 self.agent.push(Transition(states[i],action,reward,None if done else next_state),i)
                 #将reward进行累加
                 episode_rewards[i]+=reward
+                print(done)
                 #如果环境给予结束的状态则将episode_rewards、训练步数给保存，episode_rewards清零后进行图形展示，如果不是结束状态则将状态更新为下一个状态。
+                episode_reward_sequences[i].append(episode_rewards[i])
+                episode_step_sequences[i].append(step)
+                if plot:
+                    plot(episode_reward_sequences, episode_step_sequences)
                 if done:
-                    episode_reward_sequences[i].append(episode_rewards[i])
-                    episode_step_sequences[i].append(step)
+
                     episode_rewards[i]=0
-                    if plot:
-                        plot(episode_reward_sequences,episode_step_sequences)
+
                     states[i]=envs[i].reset()
                 else:
                     states[i]=next_state
@@ -182,19 +185,48 @@ class Trainer:
         #最后图形化展示整个训练过程的reward
         if plot:plot(episode_reward_sequences, episode_step_sequences, done=True)
     #定义测试方法，对完成训练的智能体进行测试
-    def test(self,max_steps,visualize=True):
-       #将智能体的网络设置测试状态
-        self.agent.training=False
-        #创建环境并初始化
-        env=self.create_env()
+    def test(self, max_steps, instances=1, visualize=False, plot=None):
 
-        state=env.reset()
-        #在最大测试步数范围测试智能体与环境的交互
+        """
+        :param max_steps:最大训练步数
+        :param instances:训练智能体的数量
+        :param visualize:配置是否图形可视化，针对与gym适用
+        :param plot:画图函数，对训练步数和rewards进行画图
+        """
+        # 根据设置的instances的数量也就是智能体的数量，分别初始化reward、step、envs、states，用于测试过程的图形化展示
+        episode_reward_sequences = [[0] for _ in range(instances)]
+        episode_step_sequences = [[0] for _ in range(instances)]
+        episode_rewards = [0] * instances
+
+        envs = [self.create_env for _ in range(instances)]
+        states = [env.reset() for env in envs]
+
+        # 测试步数在最大步数范围内开始循环测试
         for step in range(max_steps):
-            if visualize:env.render()
-            action=tf.keras.backend.eval(self.agent.act(state))
-            next_state,reward,done,_=env.step(action)
-            state=env.reset() if done else  next_state
+
+            # 根据智能体的数量和是否进行图形可视化，进行环境可视化，这里只适用于gym环境
+            for i in range(instances):
+                if visualize: envs[i].render()
+                # 将预测得到的action从Tensor转换为数值
+                action = tf.keras.backend.eval(self.agent.act(states[i], i))
+                # 将预测得到的action输入给环境，获得环境反馈的下一个状态、reward、和是否结束的标记
+                next_state, reward, done, _ = envs[i].step(action=action)
+                # 将reward进行累加
+                episode_rewards[i] += reward
+                print(reward)
+                # 如果环境给予结束的状态则将episode_rewards、训练步数给保存，episode_rewards清零后进行图形展示，如果不是结束状态则将状态更新为下一个状态。
+                episode_reward_sequences[i].append(episode_rewards[i])
+                episode_step_sequences[i].append(step)
+                if plot:
+                    plot(episode_reward_sequences, episode_step_sequences)
+                if done:
+
+                    episode_rewards[i] = 0
+
+                    states[i] = envs[i].reset()
+                else:
+                    states[i] = next_state
+
 #定义多进程训练方法，其中涉及到来训练过程的进程间通信
 def _train(create_env,instance_ids,max_steps,pipes,visualize):
 

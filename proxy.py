@@ -11,8 +11,13 @@ class Proxy(object):
    def __init__(self,url,init_state):
 
        self.url=url
+       print(init_state)
        self.observation_space=np.array(init_state)
        self.init_state=init_state
+
+
+
+
 #定义step方法，将action传送给外部环境并获得外部环境的反馈
    def step(self,action):
        #使用urllib3的PoolManager来构建一个http池
@@ -35,3 +40,5 @@ class Proxy(object):
    #定义初始化函数，用于获得外部环境的初始化状态
    def reset(self):
        return self.init_state
+
+
