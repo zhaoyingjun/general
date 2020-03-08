@@ -596,7 +596,7 @@ if __name__ == "__main__":
         frame = wx.Frame(None, title="General项目配置页面", size=(600, 400))
         nb = wx.Notebook(frame)
 
-        nb.AddPage(AppUI(nb), "gym环境训练界面")
+        nb.AddPage(AppUI(nb), "Gym环境训练界面")
         nb.AddPage(AppUI_1(nb), "外部真实环境训练页面")
         nb.AddPage(AppUI_2(nb), "外部真实环境运行界面")
         frame.Show()
