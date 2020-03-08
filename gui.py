@@ -173,7 +173,7 @@ class AppUI(wx.Panel):
             self.Bind(wx.EVT_TEXT, self.EvtText4, self.editname4)
 
             # 组合框组件
-            self.sampleList = ['relu', 'sigmod','softmax']
+            self.sampleList = ['激活函数','relu', 'sigmod','softmax']
             self.lblhear = wx.StaticText(self, label="神经网络激活函数", pos=(20, 70))
             grid.Add(self.lblhear, pos=(5, 0))
             self.edithear = wx.ComboBox(self, pos=(150, 70), size=(95, -1), choices=self.sampleList,
@@ -183,7 +183,7 @@ class AppUI(wx.Panel):
 
 
             # 组合框组件
-            self.sampleList = ['dqn', 'ddpg','ppo']
+            self.sampleList = ['算法','dqn', 'ddpg','ppo']
             self.lblhear = wx.StaticText(self, label="选择强化学习算法", pos=(20, 70))
             grid.Add(self.lblhear, pos=(6, 0))
             self.edithear = wx.ComboBox(self, pos=(150, 70), size=(95, -1), choices=self.sampleList,
@@ -233,8 +233,9 @@ class AppUI(wx.Panel):
                 self.dummy_env = dummy_env()
 
         def EvtComboBox1(self, event):
+
             if event.GetString() == 'relu':
-                data_x['activation'] = 'dqn'
+                data_x['activation'] = 'relu'
             elif event.GetString() == 'sigmod':
                 data_x['activation'] = 'sigmod'
 
@@ -327,7 +328,7 @@ class AppUI_1(wx.Panel):
             self.Bind(wx.EVT_TEXT, self.EvtText4, self.editname4)
 
             # 组合框组件
-            self.sampleList = ['relu', 'sigmod', 'softmax']
+            self.sampleList = ['激活函数','relu', 'sigmod', 'softmax']
             self.lblhear = wx.StaticText(self, label="神经网络激活函数", pos=(20, 70))
             grid.Add(self.lblhear, pos=(5, 0))
             self.edithear = wx.ComboBox(self, pos=(150, 70), size=(95, -1), choices=self.sampleList,
@@ -336,7 +337,7 @@ class AppUI_1(wx.Panel):
             self.Bind(wx.EVT_COMBOBOX, self.EvtComboBox1, self.edithear)
 
             # 组合框组件
-            self.sampleList = ['dqn', 'ddpg', 'ppo']
+            self.sampleList = ['算法','dqn', 'ddpg', 'ppo']
             self.lblhear = wx.StaticText(self, label="选择强化学习算法", pos=(20, 70))
             grid.Add(self.lblhear, pos=(6, 0))
             self.edithear = wx.ComboBox(self, pos=(150, 70), size=(95, -1), choices=self.sampleList,
@@ -385,7 +386,7 @@ class AppUI_1(wx.Panel):
 
         def EvtComboBox1(self, event):
             if event.GetString() == 'relu':
-                data_x['activation'] = 'dqn'
+                data_x['activation'] = 'relu'
             elif event.GetString() == 'sigmod':
                 data_x['activation'] = 'sigmod'
 
