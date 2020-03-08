@@ -32,6 +32,28 @@ data_x={'dense_num':3,
 
 }
 
+import inspect
+import ctypes
+def _async_raise(tid, exctype):
+    """raises the exception, performs cleanup if needed"""
+    tid = ctypes.c_long(tid)
+    if not inspect.isclass(exctype):
+        exctype = type(exctype)
+    res = ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, ctypes.py_object(exctype))
+    if res == 0:
+        raise ValueError("invalid thread id")
+    elif res != 1:
+        # """if it returns a number greater than one, you're in trouble,
+        # and you should call it again with exc=NULL to revert the effect"""
+        ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, None)
+        raise SystemError("PyThreadState_SetAsyncExc failed")
+def stop_thread(thread):
+    _async_raise(thread.ident, SystemExit)
+
+
+
+
+
 def get_config(configfile):
     cf=configparser.ConfigParser()
     cf.read(configfile)
@@ -228,11 +250,6 @@ class AppUI(wx.Panel):
             elif event.GetString()=='ppo':
                 data_x['algorithm_type'] = 'ppo'
 
-
-
-
-        #
-
         def EvtText1(self, event):
             data_x['model_name']=event.GetString()
 
@@ -244,12 +261,6 @@ class AppUI(wx.Panel):
 
         def EvtText4(self, event):
             data_x['train_steps'] = int(event.GetString())
-
-
-
-
-
-
 
 
         def on_click_start(self,event):
@@ -265,12 +276,8 @@ class AppUI(wx.Panel):
             self.threads.append(self.train)
 
         def on_click_stop(self, event):
-            for i in range(len(self.threads)):
-               self.threads[i].stop
-            self.threads=[]
 
-
-
+            stop_thread(self.progress_1)
 
 class AppUI_1(wx.Panel):
         def __init__(self, parent):
@@ -360,7 +367,7 @@ class AppUI_1(wx.Panel):
             self.Bind(wx.EVT_BUTTON, self.on_click_start, button_1)
             grid.Add(button_1, pos=(10, 0))
 
-            button_2 = wx.Button(self, label="训练", pos=(200, 350))
+            button_2 = wx.Button(self, label="停止", pos=(200, 350))
             self.Bind(wx.EVT_BUTTON, self.on_click_stop, button_2)
             grid.Add(button_2, pos=(10, 1))
 
@@ -374,15 +381,7 @@ class AppUI_1(wx.Panel):
             self.logger.AppendText('|Train_steps  | %d\n' % self.step_data)
             self.logger.AppendText('|Train_reward| %d\n' % self.reward_data)
 
-        def EvtRadioBox(self, event):
 
-            if event.GetInt() == 0:
-
-                self.dummy_env = lambda: gym.make('CartPole-v0').unwrapped
-                self.dummy_env = self.dummy_env()
-            elif event.GetInt() == 1:
-                dummy_env = lambda: gym.make('CartPole-v0').unwrapped
-                self.dummy_env = dummy_env()
 
         def EvtComboBox1(self, event):
             if event.GetString() == 'relu':
@@ -446,9 +445,8 @@ class AppUI_1(wx.Panel):
            self.threads.append(self.train)
 
         def on_click_stop(self, event):
-          for i in range(len(self.threads)):
-            self.threads[i].Destroy()
-          self.threads = []
+          #stop_thread(self.train)
+          stop_thread(self.progress_1)
 
 
 
@@ -475,26 +473,26 @@ class AppUI_2(wx.Panel):
                                   style=wx.TE_MULTILINE | wx.TE_READONLY)
 
         # 编辑组件
-        self.lblname1 = wx.StaticText(self, label="选择模型文件：", pos=(20, 60))
-        grid.Add(self.lblname1, pos=(1, 0))
-        button_3 = wx.Button(self, label="浏览", pos=(200, 325))
+        self.editname1= wx.TextCtrl(self, value="加载运行的模型文件", pos=(20, 60), size=(140, -1))
+        grid.Add(self.editname1, pos=(1, 0))
+
+
+        button_3 = wx.Button(self, label="选择模型文件", pos=(200, 325))
         self.Bind(wx.EVT_BUTTON, self.EvtText1, button_3)
         grid.Add(button_3, pos=(1, 1))
 
-
-
-        self.lblname2 = wx.StaticText(self, label="选择模型超惨配置文件：", pos=(20, 60))
-        grid.Add(self.lblname2, pos=(2, 0))
-        button_4 = wx.Button(self, label="浏览", pos=(200, 325))
+        self.editname2 = wx.TextCtrl(self, value="加载模型的超参数配置文件 ", pos=(20, 60), size=(140, -1))
+        grid.Add(self.editname2, pos=(3, 0))
+        button_4 = wx.Button(self, label="选择超参数文件", pos=(200, 325))
         self.Bind(wx.EVT_BUTTON, self.EvtText2, button_4)
-        grid.Add(button_4, pos=(2, 1))
+        grid.Add(button_4, pos=(3, 1))
 
 
 
         self.lblname3 = wx.StaticText(self, label="模型运行步数", pos=(30, 60))
-        grid.Add(self.lblname3, pos=(4, 0))
+        grid.Add(self.lblname3, pos=(5, 0))
         self.editname3 = wx.TextCtrl(self, value="请输入正整数,输入-1则表示永远运行", pos=(140, 60), size=(140, -1))
-        grid.Add(self.editname3, pos=(4, 1))
+        grid.Add(self.editname3, pos=(5, 1))
         self.Bind(wx.EVT_TEXT, self.EvtText3, self.editname3)
 
 
@@ -505,9 +503,9 @@ class AppUI_2(wx.Panel):
         self.Bind(wx.EVT_TEXT, self.EvtText4, self.editname4)
 
         self.lblname5 = wx.StaticText(self, label="初始化状态：", pos=(30, 60))
-        grid.Add(self.lblname5, pos=(8, 0))
+        grid.Add(self.lblname5, pos=(9, 0))
         self.editname5 = wx.TextCtrl(self, value="外部环境的初始化状态", pos=(140, 60), size=(140, -1))
-        grid.Add(self.editname5, pos=(8, 1))
+        grid.Add(self.editname5, pos=(9, 1))
         self.Bind(wx.EVT_TEXT, self.EvtText5, self.editname5)
 
 
@@ -538,8 +536,10 @@ class AppUI_2(wx.Panel):
                             style=wx.FD_OPEN)
         if dlg.ShowModal() == wx.ID_OK:
            data_x['model_name'] = dlg.GetFilename()
-           print(data_x['model_name'])
+           #print(data_x['model_name'])
+
         dlg.Destroy()
+        self.editname1.SetValue(dlg.GetPath())
     def EvtText2(self, event):
         dlg = wx.FileDialog(self, message=u"选择文件",
                             defaultDir=os.getcwd(),
@@ -555,7 +555,7 @@ class AppUI_2(wx.Panel):
            data_x['algorithm_type']=getconfig['algorithm_type']
            data_x['action_space']=getconfig['action_space']
            dlg.Destroy()
-
+           self.editname2.SetValue(dlg.GetPath())
     def EvtText3(self, event):
         data_x['run_steps'] = int(event.GetString())
         print(data_x['run_steps'])
@@ -587,9 +587,8 @@ class AppUI_2(wx.Panel):
         self.threads.append(self.run)
 
     def on_click_stop(self, event):
-        for i in range(len(self.threads)):
-            self.threads[i].Destroy()
-        self.threads = []
+
+        stop_thread(self.progress_1)
 
 if __name__ == "__main__":
 

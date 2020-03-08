@@ -37,21 +37,21 @@ def train():
    agent = gr.DQN(model, actions=dummy_env.action_space.n, nsteps=2)
    cpkt=tf.io.gfile.listdir("model_dir")
    if cpkt:
-      agent.model.load_weights("model_dir/dqn.h5")
+      agent.model.load_weights("model_dir/dqn")
    #将智能体和gym环境放入训练器中开始训练深度神经网络模型
    tra = gr.Trainer(dummy_env, agent)
-   tra.train(max_steps=3000, visualize=True, plot=plot_rewards)
-   agent.save(filename='model_dir/dqn.h5',overwrite=True,save_format='h5')
+   tra.train(max_steps=300, visualize=True, plot=plot_rewards)
+   agent.save(filename='model_dir/dqn',overwrite=True,save_format='h5')
 def test():
    #初始化神经网络模型
     model=create_model()
     #将定义好的网络作为参数传入general框架的API中，构建一个含有DQN神经网络的智能体。
     agent = gr.DQN(model, actions=dummy_env.action_space.n, nsteps=2)
     #将之前训练的模型参数导入的新初始化的神经网络中
-    agent.model.load_weights("model_dir/dqn.h5")
+    agent.model.load_weights("model_dir/dqn")
     #将智能体和gym环境放入训练器中开始测试模型的效果
     tra = gr.Trainer(create_env, agent)
-    tra.test(max_steps=1000)
+    tra.test(max_steps=300)
 if __name__ == '__main__':
    print("请准确输入train或者test")
    mode=input()

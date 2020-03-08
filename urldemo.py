@@ -16,6 +16,7 @@ create_env=lambda: gym.make('CartPole-v0').unwrapped
 dym_env=create_env()
 dym_env.reset()
 
+
 #定义一个json encoder类，用于处理json数据
 class NpEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -36,6 +37,7 @@ class env(Resource):
     action=request.form['action']
     action=np.int64(action)
     #将action输入到外部环境中
+   # dym_env.render()
     next_state,reward,done,_=dym_env.step(action=action)
     if done:
         dym_env.reset()

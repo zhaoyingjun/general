@@ -59,11 +59,11 @@ class Trainer:
                 action = tf.keras.backend.eval(self.agent.act(states[i], i))
                 #将预测得到的action输入给环境，获得环境反馈的下一个状态、reward、和是否结束的标记
                 next_state,reward,done, _=envs[i].step(action=action)
+                print(reward)
                 #将环境返回的数据、action作为一条记录保存到记忆存储器中
                 self.agent.push(Transition(states[i],action,reward,None if done else next_state),i)
                 #将reward进行累加
                 episode_rewards[i]+=reward
-                print(done)
                 #如果环境给予结束的状态则将episode_rewards、训练步数给保存，episode_rewards清零后进行图形展示，如果不是结束状态则将状态更新为下一个状态。
                 episode_reward_sequences[i].append(episode_rewards[i])
                 episode_step_sequences[i].append(step)
@@ -187,12 +187,7 @@ class Trainer:
     #定义测试方法，对完成训练的智能体进行测试
     def test(self, max_steps, instances=1, visualize=False, plot=None):
 
-        """
-        :param max_steps:最大训练步数
-        :param instances:训练智能体的数量
-        :param visualize:配置是否图形可视化，针对与gym适用
-        :param plot:画图函数，对训练步数和rewards进行画图
-        """
+
         # 根据设置的instances的数量也就是智能体的数量，分别初始化reward、step、envs、states，用于测试过程的图形化展示
         episode_reward_sequences = [[0] for _ in range(instances)]
         episode_step_sequences = [[0] for _ in range(instances)]
@@ -213,7 +208,6 @@ class Trainer:
                 next_state, reward, done, _ = envs[i].step(action=action)
                 # 将reward进行累加
                 episode_rewards[i] += reward
-                print(reward)
                 # 如果环境给予结束的状态则将episode_rewards、训练步数给保存，episode_rewards清零后进行图形展示，如果不是结束状态则将状态更新为下一个状态。
                 episode_reward_sequences[i].append(episode_rewards[i])
                 episode_step_sequences[i].append(step)
