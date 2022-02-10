@@ -14,7 +14,7 @@ setup(
 	python_requires='>=3.6',
 	install_requires=[
 		'cloudpickle',
-		'tensorflow==2.1',
+		'tensorflow==2.5.3',
 		'scipy',
         'gym',
         'numpy', 'wxpython', 'matplotlib','flask','flask_restful'
